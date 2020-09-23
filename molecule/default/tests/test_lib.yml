@@ -1,0 +1,8 @@
+---
+
+command:
+  version:
+    exit-status: 0
+    exec: "whereis mapnik"
+    stdout:
+    - "mapnik: /usr/local/lib/mapnik"
