@@ -1,0 +1,5 @@
+---
+- name: Converge
+  hosts: mapnik_group
+  roles:
+    - role: mapnik_role

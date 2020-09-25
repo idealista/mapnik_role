@@ -1,0 +1,37 @@
+---
+
+- name: MAPNIK | Installing dependencies
+  apt:
+    pkg: "{{ mapnik_required_libs }}"
+    state: present
+
+- name: MAPNIK | Check mapnik version
+  shell: "ls $(whereis {{ mapnik_check_name }})/.. | grep {{ mapnik_version }}"
+  register: mapnik_check
+  changed_when: false
+  ignore_errors: true
+
+- name: MAPNIK | Download package
+  get_url:
+    url: "{{ mapnik_url }}"
+    dest: "{{ mapnik_package_path }}"
+  when: mapnik_force_reinstall or mapnik_check is failed
+
+- name: MAPNIK | Extract downloaded package
+  unarchive:
+    src: "{{ mapnik_package_path }}"
+    dest: "{{ mapnik_download_path }}"
+    remote_src: True
+  when: mapnik_force_reinstall or mapnik_check is failed
+
+- name: MAPNIK | Configure
+  command: ./configure
+  args:
+    chdir: "{{ mapnik_download_path }}/{{ mapnik_release_name }}"
+  when: mapnik_force_reinstall or mapnik_check is failed
+
+- name: MAPNIK | Make install
+  make:
+    chdir: "{{ mapnik_download_path }}/{{ mapnik_release_name }}"
+    target: install
+  when: mapnik_force_reinstall or mapnik_check is failed
