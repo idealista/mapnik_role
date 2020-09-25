@@ -1,0 +1,36 @@
+---
+
+## General
+# Version
+mapnik_version: 3.0.23
+
+# Package URL
+mapnik_release_name: "mapnik-v{{ mapnik_version }}"
+mapnik_package: "{{ mapnik_release_name }}.tar.bz2"
+mapnik_url: "https://github.com/mapnik/mapnik/releases/download/v{{ mapnik_version }}/{{ mapnik_package }}"
+
+# Package paths
+mapnik_download_path: /usr/src
+mapnik_package_path: "{{ mapnik_download_path }}/{{ mapnik_package }}"
+
+# Set true to force the download and installation of the binary
+mapnik_force_reinstall: false
+
+# Installation path
+mapnik_check_name: mapnik
+mapnik_required_libs:
+  - build-essential
+  - libicu-dev
+  - libz-dev
+  - libfreetype6-dev
+  - libxml2
+  - libharfbuzz-dev
+  - libpng-dev
+  - libjpeg62-turbo-dev
+  - libtiff-dev
+  - libwebp-dev
+  - libproj-dev
+  - pkg-config
+  - libcairo2-dev
+  - libgdal-dev
+  - libboost-all-dev

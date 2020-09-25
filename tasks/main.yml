@@ -1,0 +1,6 @@
+---
+
+- name: MAPNIK | Install
+  include: install.yml
+  tags:
+    - mapnik_install
